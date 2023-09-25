@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      width: 740px;
+      height: 430px;
+      border: 2px solid black;
+      
+    }
+    
+    img {
+      display: inline-block;
+      
+    }
+
+    h2 {
+      display: inline-block;
+      margin-right: 30px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    div > div {
+      position: relative;
+      
+    }
+    
+    div > div > div {
+      position: relative;
+      justify-content: space-between;
+      display: flex;
+    }
+    h3 {
+      display: inline-block;
+      margin-left: 40px;
+    }
+
+    h4 {
+      float: right;
+      margin-right: 35px;
+    }
+    p{
+      display: inline-block;
+      margin-left: 40px;
+    }
+    p:nth-child(2){
+      float: right;
+      margin-right: 100px;
+    }
+    hr + div > p {
+      margin-left: auto;
+      float: right;
+    }
+    
+  </style>
+</head>
+<body>
+  <div>
+    <div>
+      <img src="profile.jpg" alt="Profile Image">
+      <h2>Company Name</h2>
+    </div>
+    <div>
+      <div>
+        <h3>한글 이름</h3>
+        <h4>English Name</h4>
+      </div>
+      <div>
+        <p>Phone Number</p>
+        <p>Email</p>
+      </div>
+    </div>
+    <hr>
+    <div>
+      <p>description</p>
+    </div>
+  </div>
+</body>
+</html>

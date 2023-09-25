@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .outer-box {
+      width : 400px;
+      height: 200px;
+      border: 2px solid black;
+      text-align: center;
+      color: red;
+    }
+
+		/* 추가 css 코드 작성 1 */
+
+    
+    .inner-box {
+      width : 200px;
+      height: 100px;
+			/* 추가 css 코드 작성 2 */
+			border: inherit;
+      color: black;
+      text-align: left;
+ 
+    }
+
+  </style>
+</head>
+<body>
+  <div class="outer-box">
+    <div>
+      <span>첫 번째</span>
+    </div>
+    <div class="inner-box">
+      <span>두 번째</span>
+    </div>
+  </div>
+</body>
+</html>
+
+
+<!-- 요구사항
+1. 오직 style 태그의 내용만 수정 가능하다.
+2. inherit, border, text-align, color를 활용한다.
+3. .outer-box의 width, height는 자식에게 상속되지 않는다.
+4. .inner-box의 border는 .outer-box의 속성을 상속받는다.
+5. '첫 번째' span의 색상과 정렬은 .outer-box의 속성을 상속받아 빨간색, 중앙 정렬되어야 한다.
+6. '두 번째' span은 색상과 정렬 두 속성 모두 .outer-box로부터 상속받지 않는다.-->
