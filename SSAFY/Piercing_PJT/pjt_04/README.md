@@ -12,7 +12,7 @@
 
 # p3 
 - groupby를 두 번 해서 묶은 후, index를 하나로 합치는 것이 문제가 있었습니다. 
-- df.index = df.index.map(lambda x: f"{x[0]}-{x[1]:02d}) (x[0]은 연도, x[1]은 월)
+- '''df.index = df.index.map(lambda x: f"{x[0]}-{x[1]:02d})''' (x[0]은 연도, x[1]은 월)
 - 이후 다시 to_datetime으로 바꾸었는데 더 좋은 방법이 있을 것 같습니다.
 
 # p4
