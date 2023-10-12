@@ -175,7 +175,6 @@ UPDATE hero SET 가입날짜 = NULL WHERE id = 20;
 UPDATE hero SET 가입날짜 = NULL WHERE id = 25;
 UPDATE hero SET job_id = NULL WHERE id = 30;
 UPDATE hero SET job_id = NULL WHERE id = 40;
-UPDATE hero SET job_id = NULL WHERE id = 50;
 UPDATE hero SET company_id = NULL WHERE id = 64;
 UPDATE hero SET company_id = NULL WHERE id = 75;
 UPDATE hero SET company_id = NULL WHERE id = 88;
