@@ -1,43 +1,40 @@
-def solution(N, balloons):
-    max_score = 0
+def max_balloon_shooting_score(balloons):
+    n = len(balloons)
+    dp = [[0] * n for _ in range(n)]
 
-    def burst_balloon(index, score, remaining):
-        nonlocal max_score
+    # Initialize the dp array for base cases (single balloons)
+    for i in range(n):
+        dp[i][i] = balloons[i]
 
-        if remaining == 0:
-            max_score = max(max_score, score)
-            return
+    # Fill in the dp array for shooting sequences of balloons
+    for length in range(2, n + 1):
+        for start in range(n - length + 1):
+            end = start + length - 1
+            max_score = 0
 
-        for i in range(N):
-            if balloons[i] == -1:
-                continue
+            # Consider each possible choice for the last balloon to shoot
+            for last in range(start, end + 1):
+                score = 1
+                if start > 0:
+                    score *= balloons[start - 1]
+                if end < n - 1:
+                    score *= balloons[end + 1]
 
-            left = 1
-            right = 1
-            j = i - 1
-            while j >= 0 and balloons[j] == -1:
-                j -= 1
-            if j >= 0:
-                left = balloons[j]
+                # Calculate the total score for this sequence
+                if last > start:
+                    score += dp[start][last - 1]
+                if last < end:
+                    score += dp[last + 1][end]
 
-            j = i + 1
-            while j < N and balloons[j] == -1:
-                j += 1
-            if j < N:
-                right = balloons[j]
+                max_score = max(max_score, score)
 
-            current_score = left * balloons[i] * right
-            current_balloon = balloons[i]
-            balloons[i] = -1  # 풍선을 터트림
-            burst_balloon(index + 1, score + current_score, remaining - 1)
-            balloons[i] = current_balloon  # 이전 상태로 복원
+            dp[start][end] = max_score
 
-    burst_balloon(0, 0, N)
-    return max_score
+    return dp[0][n - 1]
 
 T = int(input())
 for tc in range(1, T + 1):
     N = int(input())
     balloons = list(map(int, input().split()))
-    answer = solution(N, balloons)
+    answer = max_balloon_shooting_score(balloons)
     print(f'#{tc} {answer}')

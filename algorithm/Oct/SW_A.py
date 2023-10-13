@@ -43,13 +43,6 @@ def solution(balloons, point):
             point += (balloons[1] * 2)
             balloons.pop()
             balloons.pop()
-    elif len(balloons) == 3:
-        if balloons[1]*3 >= balloons[0] + balloons[2] + balloons[0]*balloons[2]:
-            point += balloons[1]
-            balloons.pop(2)
-        else:
-            point += balloons[0] * balloons[2]
-            balloons.pop(1)
 
     else:
         max_i = 0
