@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <h2>{{ hashtag.content }}</h2>
+        <p>{{ products|length }}개의 상품</p>
+    </div>
+    <hr>
+    <div>
+        <h2>{{ hashtag.content }}(을)를 태그한 상품</h2>
+        {% for product in products %}
+        <h3>{{ product.pk }}번 상품</h3>
+        <h3>{{ product.title }}</h3>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock content %}
