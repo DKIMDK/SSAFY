@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'boards:index' %}">메인 페이지</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url "accounts:profile" request.user.username %}">{{user.username}}'s Profile</a>
+        </li>
+        <li class="nav-item">
+          <form action="{% url "accounts:logout" %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">LOGOUT</button>
+          </form>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "accounts:login" %}">LOGIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "accounts:signup" %}">SIGNUP</a>
+        </li>
+        {% endif %}
+      
+        
+      </ul>
+    </div>
+  </div>
+</nav>
