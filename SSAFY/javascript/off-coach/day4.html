@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+  <script>
+    // 유사배열객체
+    // 배열(Array), 객체(Object)
+    const numbers = [1, 2, 3]
+    const obj = {
+      0: 1,
+      1: 2,
+      2: 3,
+      length: 3
+      // key로 index를 가짐
+      // 값을 각각 가지고 있음
+      // length 가지고 있음
+      // obj를 배열처럼 구성 === 유사배열객체(Array-Like Object)
+      // 인덱스와 length를 가지고 있으면 유사배열객체로 간주
+      // then, what is 배열?
+    }
+    // 배열
+    // - 관련 있는 데이터들을 하나의 변수에 할당
+    // - 자바스크립트에서는 명시적 타입이 없기 때문에
+    //   여러 자료형을 가질 수 있음
+    // - 많은 methods 내장
+    console.log(numbers)
+    console.log(obj)
+
+    const liList = document.querySelectorAll('li')
+    // 대표적인 유사배열객체
+    console.log(liList)
+    // Array 객체인지 판별하기
+    console.log(Array.isArray(liList))
+
+    // 왜 유사배열객체를 사용할까?
+    // - 배열보다 메모리가 효율적으로 관리됨
+    // - 배열의 동작을 제한하거나, 가지고 있지 않은 동작을 추가하는 등
+    //   Customizing이 가능함
+    // - 객체를 배열처럼 인덱스로 접근할 수 있다
+
+    // 주의사항
+    // - map, filter 등의 배열 메서드 사용 못함.
+    // - forEach는 사용 가능
+
+    // Array의 Methods를 사용하려면, Array로 형변환 하면 됨
+    // 1.1 유사배열객체 -> 배열로 변환
+    // 1.1.1 Array.form 사용
+    const array1 = Array.from(liList)
+    // 1.1.2 전개 연산자(...) 사용
+    const array2 = [...liList]
+    console.log(array2)
+
+    // 1.1.3 iterable 하지 않은, 일반 객체
+    const array3 = Object.values(obj)
+    console.log(array3)
+
+    // 얕은 복사와 깊은 복사
+    //  - 원시 타입 빼고는 다 얕은 복사
+    // 2.1 
+    function func(arr) {
+      arr[0] = 10
+    }
+    let arr = [1, 2, 3]
+    func(arr)
+    console.log(arr)
+
+    {
+      // 2.2 복사할 때
+      let numbers =[1,2,3]
+      let newNumbers = numbers
+      newNumbers[0] = 10
+      console.log(numbers)
+      console.log(newNumbers)
+    }
+
+    // 2.3 깊은 복사를 하는 방법
+    {
+
+      let numbers = [1,2,3]
+      let newNumbers[1] = [...numbers]
+      console.log(numbers)
+      console.log(newNumbers)
+
+
+    }
+    // 객체의 깊은 복사
+    {
+      const obj = {
+        0: 1,
+        1: 2,
+        2: 3,
+        length: 3
+      }
+
+      // 깊은 복사는 어떻게 할까?
+      // 가장 간단한 방법
+      // 문자열 변환 시 참조가 모두 끊어짐
+      // 단점: 비교적 느리다
+
+      // 복잡한 방법: 재귀호출을 이용한 방법
+      let newObj = JSON.parse(JSON.stringify(obj))
+      newObj[0] = 10
+      console.log(obj)
+      console.log(newObj)
+    }
+
+    // 2차원 이상의 배열 깊은 복사 하는 방법
+    {
+      let numbers = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ]
+      // depth 1까지만 깊은 복사
+      // depth 2이상은 모두 얕은 복사
+      let newNumbers = [...numbers]
+      // 깊이 2 데이터를 수정
+      newNumbers[0][1] = 10
+      console.log(numbers) // 값이 바뀐다!
+      console.log(newNumbers)
+      // 스스로 찾아보기
+    }
+</script>
+</body>
+</html>
