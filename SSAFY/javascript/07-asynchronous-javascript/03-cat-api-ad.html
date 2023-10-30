@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>냥냥펀치</button>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 반드시 위에 작성할 것!! 그래야 아래부터 적용이 됨 -->
+  <script>
+    const URL = "https://api.thecatapi.com/v1/images/search/"
+
+    const btn = document.querySelector('button')  // 버튼 선택
+    const getCats = function () {
+      axios({
+        method: 'get',
+        url: URL,
+        // 이것 자체로 promise 객체,
+        // promise 객체가 then method의 인자로 들어감
+      })
+        .then((response) => { // 성공 시 수행할 로직
+          // console.log(response) // promise 객체 정보가 Object 형태로 나옵니다. 안에 data에 접근하면
+          // console.log(response.data) // Array 형태로 정보가 있습니다. 배열 첫번째의 url 값을 보면
+          // console.log(response.data[0].url) // 고양이 주소가 있습니다.
+          const imgUrl = response.data[0].url
+          return imgUrl
+        })
+        . then((imgUrl) =>{
+          // chaining: 코드의 가독성 및 유지 보수, 에러 처리를 위해 역할을 잘게 나눕니다.
+          // 인자는 이전 then의 return 값을 받습니다.
+          const imgTag = document.createElement('img')
+          imgTag.setAttribute('src', imgUrl)
+          document.body.appendChild(imgTag) // body에 추가
+        })
+        .catch((error) => { // 실패 시 수행할 로직
+          console.log(error)
+          console.log('실패다냥')
+        })
+      console.log('냥냥') // 먼저 출력됨. 비동기
+    }
+
+    btn.addEventListener('click', getCats)
+  </script>
+</body>
+
+</html>

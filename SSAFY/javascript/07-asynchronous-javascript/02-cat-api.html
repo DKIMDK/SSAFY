@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 반드시 위에 작성할 것!! 그래야 아래부터 적용이 됨 -->
+  <script>
+    const URL = "https://api.thecatapi.com/v1/images/search/"
+    axios({
+      method: 'get',
+      url: URL,
+      // 이것 자체로 promise 객체,
+      // promise 객체가 then method의 인자로 들어감
+    })
+      .then((response) => { // 성공 시 수행할 로직
+        console.log(response) // promise 객체 정보가 Object 형태로 나옵니다. 안에 data에 접근하면
+        console.log(response.data) // Array 형태로 정보가 있습니다. 배열 첫번째의 url 값을 보면
+        console.log(response.data[0].url) // 고양이 주소가 있습니다.
+      })
+      .catch((error) => { // 실패 시 수행할 로직
+        console.log(error)
+        console.log('실패다냥')
+      })
+    console.log('냥냥') // 먼저 출력됨. 비동기
+  </script>
+</body>
+
+</html>
