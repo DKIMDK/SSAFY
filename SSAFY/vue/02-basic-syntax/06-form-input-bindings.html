@@ -9,25 +9,32 @@
 
 <body>
   <div id="app">
-    <button v-on:click="increment">{{ count }}</button> 
-    <!-- v-on: Vue에서의 Eventlistener -->
+    <p>{{ inputText1 }}</p>
+    <input :value="inputText1" @input="onInput">
+
+    <p> {{ inputText2 }}</p>
+    <input v-model="inputText2">
   </div>
+
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script>
     const { createApp, ref } = Vue
 
     const app = createApp({
       setup() {
-        const count =ref(0)
-        const increment = function () {
-          count.value++
+        const inputText1 = ref('')
+        const inputText2 = ref('')
+        const onInput = function (event) {
+          inputText1.value = event.currentTarget.value
         }
         return {
-          count,
-          increment
+          inputText1,
+          inputText2,
+          onInput,
         }
       }
     })
+
     app.mount('#app')
   </script>
 </body>
