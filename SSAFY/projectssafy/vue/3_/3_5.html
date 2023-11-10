@@ -26,6 +26,17 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <div id="app">
     <h1>다양한 전시 정보</h1>
+    <div v-if="selectedInfos.length > 0">
+
+        <ul>
+            <div>
+                <p>관람 예정인 전시: {{ selectedInfos.join(', ') }}</p>
+                
+            </div>
+        </ul>
+        <p>예상 가격: {{ totalPrice }} 원</p>
+    </div>
+        
     <label for="isActive">전시 중인 정보만 보기</label>
     <input v-model="isActive" type="checkbox" id="isActive">
     <ul>
@@ -50,7 +61,7 @@
   </div>
 
   <script>
-    const { createApp, ref, computed } = Vue
+    const { createApp, ref, computed, watch } = Vue
 
     const app = createApp({
         setup() {
@@ -60,48 +71,48 @@
                 location: '부산 시립 미술관',
                 price: 1000,
                 active: true,
-                selected: false,
+                isSelected: false,
             },
             { 
                 name: '마우라치오 카텔란 개인전',
                 location: '리움 미술관',
                 price: 30000,
                 active: true,
-                selected: false,
+                isSelected: false,
             },
             { 
                 name: '조선백자전',
                 location: '리움 미술관',
                 price: 30000,
                 active: true,
-                selected: false,
+                isSelected: false,
             },               
             { 
                 name: '한국 실험미술 1960 - 1970',
                 location: '국립현대미술관',
                 price: 0,
                 active: true,
-                selected: false,
+                isSelected: false,
             },
             { 
                 name: '에드워드 호퍼 : 길 위에서',
                 location: '서울 시립 미술관',
                 price: 1000,
                 active: false,
-                selected: false,
+                isSelected: false,
             },               
             {
                 name: '알렉산더 칼더 x 이우환',
                 location: '국제갤러리 서울점',
                 price: 15000,
                 active: false,
-                selected: false,
+                isSelected: false,
             },
             ])
             
             const isActive = ref(false)
 
-            const isSelected = ref(false)
+            
 
             const selectedInfos = ref([])
 
@@ -125,56 +136,38 @@
                 return classes.join(' ')
             }
 
-
+            watch(myArr, (newVal) => {
+            // 2. Filter exhibitions with isSelected = true and calculate the total price
+            selectedInfos.value = newVal.filter((item) => item.isSelected)
+            .map((item) => item.name)
+            totalPrice.value = newVal.filter((item) => item.isSelected).reduce((total, item) => total + item.price, 0)
+        }, { deep: true });
 
            return {
                 myArr,
                 isActiveExhibition,
                 isActive,
-                isSelected,
+                
                 howMuch,
+                selectedInfos,
+                totalPrice,
 
             }
         }
     })
     app.mount('#app')
     /*
-    1. 주어진 전시 정보를 객체에 담고, 모든 객체를 하나의 배열에 할당하시오.
-    2. li태그에 조건부 클래스 바인딩을 활용하여 적절한 클래스를 부여하시오.
-        - 전시 가격이 5000 이하이면 cheap 클래스를 부여한다.
-        - 전시 가격이 20000 이상이면 expensive 클래스를 부여한다.
-    3. 전시 가격이 0원인 경우, 가격 표시 아래에 "무료 전시입니다." 문구를 보여준다.
-        
-    - 전시 정보
-        무라카미 다카시 : 무라카시좀비
-        부산 시립 미술관
-        1000
-        전시 중
-        
-        마우라치오 카텔란 개인전
-        리움 미술관
-        30000
-        전시 중
-        
-        조선백자전
-        리움 미술관
-        30000
-        전시 중
-        
-        한국 실험미술 1960 - 1970
-        국립현대미술관
-        0
-        전시 중
-        
-        에드워드 호퍼 : 길 위에서
-        서울 시립 미술관
-        1000
-        전시 종료
-        
-        알렉산더 칼더 x 이우환
-        국제갤러리 서울점
-        15000
-        전시 종료
+    1. isSelected가 true인 전시 정보만 담을 selectedInfos 배열을 작성한다.
+    2. isSelected가 true인 전시 정보들의 가격을 합산한 값을 담을 totalPrice 변수를 작성한다.
+    3. 전시 정보들을 담은 배열의 value가 변화할 시 다음 코드들이 실행되도록 watch를 활용하시오.
+    - isSelected가 true인 객체들만 filtering하여 filterdInfos 배열에 할당한다.
+    - selectedInfos 배열에 filterdInfos 배열의 각 객체들의 제목만 모아 새로운 배열을 만들어 할당한다.
+    - totalPrice 변수에 filterdInfos 배열의 각 객체들의 price들을 모두 합산한 값을 할당한다.
+    4. selectedInfos에 따라 서로 다른 정보를 화면에 보여주어야 한다.
+    - v-show를 활용한다.
+    - selectedInfos의 길이가 1이상인 경우에는 관람 예정인 전시 제목과, 예상 총 금액을 보여준다.
+    - 이때, join을 활용하여 selectedInfos의 각 값들을 , (쉼표)로 구분하여 나타낸다.
+    - selectedInfos의 길이가 0인 경우에는 '관람 예정인 전시가 없습니다.' 문구를 보여준다.
     */
   </script>
 </body>
