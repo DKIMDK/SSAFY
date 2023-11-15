@@ -35,14 +35,16 @@ INSTALLED_APPS = [
     'articles',
     'accounts',
     'rest_framework',
-    # 'rest_framework.authtoken',
-    # 'dj_rest_auth',
+    'rest_framework.authtoken',
+    # allauth를 DRF에서 쓸 수 있도록 해놓은 라이브러리
+    'dj_rest_auth',
     'corsheaders',
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'dj_rest_auth.registration',
+    'django.contrib.sites',
+    # django의 인증 시스템을 구현해놓은 라이브러리
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,18 +53,18 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# SITE_ID = 1
+SITE_ID = 1
 
-# REST_FRAMEWORK = {
-#     # Authentication
-#     'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework.authentication.TokenAuthentication',
-#     ],
-#     # permission
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.permissions.AllowAny',
-#     ],
-# }
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,5 +157,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+REST_AUTH = {
+    'REGISTER_SERIALIZER' : 'accounts.serializers.CustomRegisterSerializer'
+}
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 
 ALLOWED_HOSTS = ['*']

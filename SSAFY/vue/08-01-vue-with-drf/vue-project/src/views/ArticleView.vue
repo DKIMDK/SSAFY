@@ -7,7 +7,6 @@
     <hr>
     <ArticleList />
 
-   
   </div>
 </template>
 
